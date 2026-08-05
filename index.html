@@ -852,12 +852,12 @@
     <h2 class="gallery-title">Cada imóvel tem<br><em>sua história regularizada</em></h2>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-item tall" data-parallax="-40"><img src="quadros/desktop/desktop/frame-0010.webp" alt="Quesia Rodrigues - imóvel regularizado" loading="lazy"></div>
-    <div class="gallery-item" data-parallax="30"><img src="quadros/desktop/desktop/frame-0030.webp" alt="Regularização de imóvel" loading="lazy"></div>
-    <div class="gallery-item" data-parallax="20"><img src="quadros/desktop/desktop/frame-0050.webp" alt="Advocacia imobiliária" loading="lazy"></div>
-    <div class="gallery-item" data-parallax="-20"><img src="quadros/desktop/desktop/frame-0070.webp" alt="Segurança jurídica" loading="lazy"></div>
-    <div class="gallery-item tall" data-parallax="35"><img src="quadros/desktop/desktop/frame-0090.webp" alt="REURB - Regularização Fundiária" loading="lazy"></div>
-    <div class="gallery-item" data-parallax="-30"><img src="quadros/desktop/desktop/frame-0110.webp" alt="Quesia Rodrigues advogada" loading="lazy"></div>
+    <div class="gallery-item tall" data-parallax="-40"><img src="quadros/desktop/frame-0010.webp" alt="Quesia Rodrigues - imóvel regularizado" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="30"><img src="quadros/desktop/frame-0030.webp" alt="Regularização de imóvel" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="20"><img src="quadros/desktop/frame-0050.webp" alt="Advocacia imobiliária" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="-20"><img src="quadros/desktop/frame-0070.webp" alt="Segurança jurídica" loading="lazy"></div>
+    <div class="gallery-item tall" data-parallax="35"><img src="quadros/desktop/frame-0090.webp" alt="REURB - Regularização Fundiária" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="-30"><img src="quadros/desktop/frame-0110.webp" alt="Quesia Rodrigues advogada" loading="lazy"></div>
   </div>
 </section>
 
@@ -1337,7 +1337,7 @@ let frames = new Array(FRAME_COUNT).fill(null);
 let loaded = 0, animStarted = false;
 let curFrame = 0, tgtFrame = 0;
 
-function getFrameDir() { return isMobile() ? 'quadros/mobile/mobile/' : 'quadros/desktop/desktop/'; }
+function getFrameDir() { return isMobile() ? 'quadros/mobile/' : 'quadros/desktop/'; }
 function resizeCanvas() {
   // Usa innerWidth/innerHeight — mais confiável que offsetWidth no mobile
   canvas.width  = window.innerWidth;
