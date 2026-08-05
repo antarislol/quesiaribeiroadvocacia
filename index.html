@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quesia Rodrigues | Advocacia e Regularização de Imóveis</title>
+  <meta name="description" content="Regularize seu imóvel com estratégia e segurança jurídica. Quesia Rodrigues — Ex-Tabeliã e Registradora por 9 anos, Docente e Presidente da Comissão Técnica de REURB.">
+  <meta name="keywords" content="regularização de imóveis, advocacia imobiliária, REURB, regularização fundiária, advogada">
+  <meta property="og:title" content="Quesia Rodrigues | Advocacia e Regularização de Imóveis">
+  <meta property="og:description" content="Regularize seu imóvel com estratégia e segurança jurídica.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — Quesia Rodrigues
+       Preset: Cinemático Quente × Advocacia de Alto Padrão
+       ============================================================ */
+    :root {
+      --bg:           #09080a;
+      --surface:      #141218;
+      --surface-2:    #1d1a22;
+      --text:         #f2ede6;
+      --text-dim:     #c4bdb4;
+      --muted:        #8a8178;
+      --line:         #3a3340;
+      --accent:       #c8a96e;
+      --accent-glow:  rgba(200, 169, 110, 0.28);
+      --accent-soft:  rgba(200, 169, 110, 0.07);
+      --accent-2:     #e8d5b0;
+      --heading:      'Playfair Display', Georgia, serif;
+      --body:         'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius:       8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── CURSOR ─── */
+    #cursor-dot {
+      position: fixed;
+      width: 6px; height: 6px;
+      background: var(--text);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(200, 169, 110, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s, height 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    body.cursor-hover #cursor-ring {
+      width: 56px; height: 56px;
+      border-color: var(--accent);
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+    @media (max-width: 900px) {
+      #cursor-dot, #cursor-ring { display: none; }
+      body { cursor: auto; }
+    }
+
+    /* ─── GRAIN ─── */
+    #grain {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px;
+      opacity: 0.032;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* ─── VINHETA ─── */
+    #vinheta {
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, transparent 48%, rgba(9,8,10,0.52) 100%);
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* ─── PARTÍCULAS ─── */
+    #particles-canvas {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      opacity: 0.5;
+    }
+
+    /* ─── LOADER ─── */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      z-index: 9999;
+      transition: opacity 0.8s ease, filter 0.8s ease;
+    }
+    #loader.hide { opacity: 0; filter: blur(8px); pointer-events: none; }
+    .loader-brand {
+      font-family: var(--heading);
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      color: var(--accent-2);
+      text-transform: uppercase;
+    }
+    .loader-lines { display: flex; flex-direction: column; align-items: center; gap: 18px; width: 160px; }
+    .loader-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.5; }
+    .loader-bar-track { width: 140px; height: 2px; background: rgba(200, 169, 110, 0.15); border-radius: 2px; overflow: hidden; }
+    .loader-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 2px; transition: width 0.2s ease; }
+    .loader-pct { font-family: var(--body); font-size: 11px; font-weight: 400; letter-spacing: 0.2em; color: var(--muted); }
+
+    /* ─── MARCADORES ─── */
+    #chapter-marks {
+      position: fixed; right: 28px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0; z-index: 50;
+    }
+    .cm-dot {
+      width: 6px; height: 6px; border: 1px solid rgba(200, 169, 110, 0.35);
+      border-radius: 50%; cursor: pointer; position: relative;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .cm-dot.active { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); transform: scale(1.4); }
+    .cm-line { width: 1px; height: 28px; background: rgba(200, 169, 110, 0.15); }
+    .cm-label {
+      position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+      font-family: var(--body); font-size: 9px; letter-spacing: 0.2em;
+      color: var(--muted); white-space: nowrap; opacity: 0; transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .cm-dot:hover .cm-label { opacity: 1; }
+    @media (max-width: 900px) { #chapter-marks { display: none; } }
+
+    /* ─── SEÇÃO ANIMADA ─── */
+    #anim-section {
+      position: relative;
+      height: 650vh;
+      overflow-x: clip;
+    }
+    #canvas-container {
+      position: fixed;   /* garante cobertura 100% real em qualquer mobile */
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      transition: opacity 0.4s ease;
+    }
+    #canvas-container.out-of-view {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #main-canvas {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: block; z-index: 0;
+    }
+    #cover-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 1;
+      transition: opacity 0.6s ease;
+    }
+    #cover-img.hide { opacity: 0; pointer-events: none; }
+    #grad-left {
+      position: absolute; top: 0; left: 0; width: 55%; height: 100%;
+      background: linear-gradient(90deg, rgba(9,8,10,0.72) 0%, rgba(9,8,10,0.35) 55%, transparent 100%);
+      pointer-events: none; z-index: 2;
+    }
+    #grad-bottom {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 35%;
+      background: linear-gradient(180deg, transparent 0%, rgba(9,8,10,0.65) 100%);
+      pointer-events: none; z-index: 2;
+    }
+    #tint-overlay { position: absolute; inset: 0; opacity: 0; pointer-events: none; z-index: 3; transition: background 1s ease, opacity 1s ease; }
+
+    /* ─── SCROLL HINT ─── */
+    #scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 12; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 1; transition: opacity 0.5s;
+    }
+    #scroll-hint.hidden { opacity: 0; }
+    .scroll-hint-text { font-size: 9px; letter-spacing: 0.28em; color: var(--muted); text-transform: uppercase; }
+    .scroll-hint-line {
+      width: 1px; height: 36px;
+      background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+      animation: scrollPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ─── OVERLAYS ─── */
+    .scroll-text {
+      position: fixed; z-index: 10; opacity: 0; pointer-events: none;
+      transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
+      transform: translateX(-20px); filter: blur(6px);
+    }
+    .scroll-text.visible { opacity: 1; transform: translateX(0); filter: blur(0); pointer-events: auto; }
+
+    /* S1 Hero */
+    #s1 { left: 6%; bottom: 14%; max-width: min(580px, 80vw); }
+    .s1-label { font-family: var(--body); font-size: 9px; font-weight: 500; letter-spacing: 0.32em; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+    .s1-name { font-family: var(--heading); font-size: clamp(42px, 5.5vw, 76px); font-weight: 300; line-height: 1.05; color: var(--text); margin-bottom: 16px; }
+    .s1-name em { font-style: italic; color: var(--accent-2); }
+    .s1-sub { font-family: var(--body); font-size: clamp(14px, 1.4vw, 17px); font-weight: 300; line-height: 1.7; color: var(--text-dim); max-width: 420px; margin-bottom: 32px; }
+    .stat-bar {
+      display: flex; gap: 0; flex-wrap: wrap;
+      background: rgba(244,240,234,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(244,240,234,0.06); border-radius: var(--radius); overflow: hidden;
+    }
+    .stat-item { flex: 1; min-width: 100px; padding: 16px 20px; border-right: 1px solid rgba(244,240,234,0.06); transition: background 0.3s; }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(200,169,110,0.06); }
+    .stat-num { font-family: var(--heading); font-size: clamp(22px, 2.2vw, 32px); font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-family: var(--body); font-size: 9px; font-weight: 500; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; }
+
+    /* S2 Visão */
+    #s2 { left: 6%; top: 50%; transform: translateY(-50%) translateX(-20px); max-width: min(520px, 80vw); }
+    #s2.visible { transform: translateY(-50%) translateX(0); }
+    .s2-quote-mark { font-family: var(--heading); font-size: 96px; line-height: 0.7; color: var(--accent); opacity: 0.35; margin-bottom: 20px; }
+    .s2-quote { font-family: var(--heading); font-size: clamp(20px, 2.4vw, 30px); font-style: italic; font-weight: 300; line-height: 1.55; color: var(--text); margin-bottom: 20px; }
+    .s2-divider { width: 48px; height: 1px; background: var(--accent); margin-bottom: 14px; }
+    .s2-attribution { font-family: var(--body); font-size: 11px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; }
+
+    /* S3 Credenciais */
+    #s3 { left: 6%; top: 50%; transform: translateY(-50%) translateX(-20px); max-width: min(520px, 80vw); }
+    #s3.visible { transform: translateY(-50%) translateX(0); }
+    .s3-overline { font-family: var(--body); font-size: 9px; font-weight: 500; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+    .s3-title { font-family: var(--heading); font-size: clamp(26px, 3vw, 42px); font-weight: 400; line-height: 1.2; color: var(--text); margin-bottom: 16px; }
+    .s3-body { font-size: clamp(13px, 1.2vw, 15px); line-height: 1.75; color: var(--text-dim); margin-bottom: 24px; }
+    .feature-list { display: flex; flex-direction: column; gap: 10px; }
+    .feature-item {
+      display: flex; align-items: center; gap: 14px; padding: 10px 14px;
+      border: 1px solid rgba(200,169,110,0.15); border-radius: 6px;
+      background: rgba(200,169,110,0.04); font-size: clamp(12px, 1.1vw, 14px);
+      color: var(--text-dim); transition: border-color 0.3s, background 0.3s;
+    }
+    .feature-item:hover { border-color: rgba(200,169,110,0.35); background: rgba(200,169,110,0.08); }
+    .feature-icon { font-size: 16px; flex-shrink: 0; color: var(--accent); }
+
+    /* S4 Grid */
+    #s4 { left: 6%; top: 50%; transform: translateY(-50%) translateX(-20px); max-width: min(600px, 88vw); }
+    #s4.visible { transform: translateY(-50%) translateX(0); }
+    .s4-overline { font-family: var(--body); font-size: 9px; font-weight: 500; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+    .s4-title { font-family: var(--heading); font-size: clamp(22px, 2.4vw, 34px); font-weight: 400; color: var(--text); margin-bottom: 22px; }
+    .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .diff-card {
+      background: rgba(244,240,234,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(244,240,234,0.06); border-radius: var(--radius); padding: 16px;
+      transition: background 0.3s, border-color 0.3s, transform 0.25s;
+    }
+    .diff-card:hover { background: rgba(200,169,110,0.06); border-color: rgba(200,169,110,0.2); transform: translateY(-2px); }
+    .diff-card-icon { font-size: 22px; margin-bottom: 8px; }
+    .diff-card-title { font-family: var(--heading); font-size: clamp(13px, 1.2vw, 15px); font-weight: 400; color: var(--accent-2); margin-bottom: 4px; }
+    .diff-card-desc { font-size: 11px; line-height: 1.6; color: var(--muted); }
+
+    /* S5 REURB */
+    #s5 { left: 6%; top: 50%; transform: translateY(-50%) translateX(-20px); max-width: min(500px, 80vw); }
+    #s5.visible { transform: translateY(-50%) translateX(0); }
+    .s5-overline { font-family: var(--body); font-size: 9px; font-weight: 500; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+    .s5-title { font-family: var(--heading); font-size: clamp(22px, 2.4vw, 36px); font-weight: 400; line-height: 1.25; color: var(--text); margin-bottom: 16px; }
+    .s5-body { font-size: clamp(13px, 1.2vw, 15px); line-height: 1.75; color: var(--text-dim); margin-bottom: 20px; }
+    .detail-list { display: flex; flex-direction: column; }
+    .detail-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dotted rgba(200,169,110,0.2); gap: 12px; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key { font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; flex-shrink: 0; }
+    .detail-dots { flex: 1; height: 1px; background: repeating-linear-gradient(90deg, rgba(200,169,110,0.25) 0, rgba(200,169,110,0.25) 2px, transparent 2px, transparent 8px); }
+    .detail-val { font-size: 12px; color: var(--text-dim); text-align: right; flex-shrink: 0; }
+
+    /* S6 CTA */
+    #s6 { left: 50%; top: 50%; transform: translate(-50%, -50%) translateX(20px); text-align: center; max-width: min(600px, 88vw); filter: blur(6px); }
+    #s6.visible { transform: translate(-50%, -50%); filter: blur(0); }
+    .s6-title { font-family: var(--heading); font-size: clamp(30px, 4vw, 58px); font-style: italic; font-weight: 300; line-height: 1.15; color: var(--text); margin-bottom: 14px; }
+    .s6-sub { font-size: clamp(13px, 1.3vw, 16px); line-height: 1.7; color: var(--text-dim); margin-bottom: 32px; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+      background: var(--accent); color: var(--bg);
+      font-family: var(--body); font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+      text-decoration: none; border-radius: 6px;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    }
+    .btn-primary:hover { background: var(--accent-2); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,169,110,0.3); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+      background: transparent; color: var(--accent);
+      font-family: var(--body); font-size: 13px; font-weight: 400; letter-spacing: 0.08em;
+      text-decoration: none; border: 1px solid rgba(200,169,110,0.4); border-radius: 6px;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-2px); }
+    .contact-card {
+      display: inline-flex; align-items: center; gap: 12px; padding: 16px 24px;
+      background: rgba(244,240,234,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(244,240,234,0.08); border-radius: var(--radius);
+      font-size: 12px; color: var(--text-dim); letter-spacing: 0.06em;
+    }
+
+    /* ─── LOGO FIXO ─── */
+    #fixed-logo { position: fixed; top: 28px; left: 6%; z-index: 60; opacity: 0; transition: opacity 0.8s ease; }
+    #fixed-logo.show { opacity: 1; }
+    .logo-mark { font-family: var(--heading); font-size: clamp(14px, 1.4vw, 18px); font-weight: 300; letter-spacing: 0.28em; color: var(--accent-2); text-transform: uppercase; }
+    .logo-sub { font-family: var(--body); font-size: 8px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+
+    /* ─── GALERIA ─── */
+    #gallery-section { padding: 120px 6% 100px; background: var(--bg); }
+    .gallery-header { text-align: center; margin-bottom: 64px; }
+    .gallery-label { font-family: var(--body); font-size: 9px; font-weight: 500; letter-spacing: 0.35em; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
+    .gallery-title { font-family: var(--heading); font-size: clamp(28px, 3.5vw, 48px); font-weight: 300; color: var(--text); }
+    .gallery-title em { font-style: italic; color: var(--accent-2); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 1200px; margin: 0 auto; }
+    .gallery-item {
+      overflow: hidden; border-radius: var(--radius);
+      border: 1px solid rgba(200,169,110,0.08); aspect-ratio: 16/9;
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .gallery-item.tall { grid-row: span 2; aspect-ratio: auto; min-height: 300px; }
+    .gallery-item.revealed { opacity: 1; transform: translateY(0); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    @media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr 1fr; } .gallery-item.tall { grid-row: auto; aspect-ratio: 16/9; } }
+    @media (max-width: 480px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    /* ─── SOBRE ─── */
+    #sobre-section { padding: 100px 6%; max-width: 960px; margin: 0 auto; }
+    .sobre-label { font-family: var(--body); font-size: 9px; font-weight: 500; letter-spacing: 0.32em; color: var(--accent); text-transform: uppercase; margin-bottom: 18px; }
+    .sobre-title { font-family: var(--heading); font-size: clamp(28px, 3.5vw, 50px); font-weight: 300; line-height: 1.2; color: var(--text); margin-bottom: 24px; }
+    .sobre-title em { font-style: italic; color: var(--accent-2); }
+    .sobre-body { font-size: clamp(14px, 1.3vw, 16px); line-height: 1.85; color: var(--text-dim); margin-bottom: 24px; max-width: 680px; }
+    .credenciais-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
+    .cred-card {
+      padding: 24px; background: rgba(244,240,234,0.03);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(244,240,234,0.06); border-radius: var(--radius);
+      transition: background 0.3s, border-color 0.3s, transform 0.25s;
+    }
+    .cred-card:hover { background: rgba(200,169,110,0.06); border-color: rgba(200,169,110,0.2); transform: translateY(-3px); }
+    .cred-icon { font-size: 28px; margin-bottom: 12px; }
+    .cred-title { font-family: var(--heading); font-size: 15px; font-weight: 400; color: var(--accent-2); margin-bottom: 6px; }
+    .cred-desc { font-size: 12px; line-height: 1.65; color: var(--muted); }
+
+    /* ─── CTA FINAL ─── */
+    #cta-final { padding: 80px 6%; text-align: center; border-top: 1px solid rgba(200,169,110,0.12); }
+    .cta-final-title { font-family: var(--heading); font-size: clamp(26px, 3.5vw, 48px); font-style: italic; font-weight: 300; color: var(--text); margin-bottom: 14px; }
+    .cta-final-sub { font-size: clamp(13px, 1.3vw, 16px); color: var(--text-dim); margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .cta-final-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── RODAPÉ ─── */
+    #footer {
+      padding: 40px 6%; background: var(--surface);
+      border-top: 1px solid rgba(244,240,234,0.04);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand { font-family: var(--heading); font-size: 16px; font-weight: 300; letter-spacing: 0.2em; color: var(--accent-2); }
+    .footer-legal { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      #s1 { left: 5%; bottom: 10%; max-width: 90vw; }
+      #s2, #s3, #s4, #s5 { left: 5%; max-width: 90vw; }
+      #s6 { max-width: 92vw; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .stat-item { min-width: 80px; padding: 12px 14px; }
+      .stat-num { font-size: 22px; }
+      #fixed-logo { display: none; }
+      #gallery-section { padding: 80px 5% 60px; }
+      #sobre-section { padding: 60px 5%; }
+    }
+
+    /* ─── S6 BACKDROP ─── */
+    #s6-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 8, 10, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8;
+      transition: opacity 0.7s ease;
+    }
+    #s6-backdrop.active {
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    /* ─── SEÇÕES ADICIONAIS DE CONTEÚDO ─── */
+    .section-wrapper {
+      padding: 100px 6%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header-center {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 60px;
+    }
+    .section-tag {
+      font-family: var(--body);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title-large {
+      font-family: var(--heading);
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    .section-title-large em {
+      font-style: italic;
+      color: var(--accent-2);
+    }
+
+    /* 1. SERVIÇOS */
+    .servicos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .servico-card {
+      padding: 28px;
+      background: rgba(244, 240, 234, 0.025);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(244, 240, 234, 0.06);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.3s, border-color 0.3s, transform 0.25s, box-shadow 0.3s;
+    }
+    .servico-card:hover {
+      background: rgba(200, 169, 110, 0.06);
+      border-color: rgba(200, 169, 110, 0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.3);
+    }
+    .servico-num {
+      font-family: var(--heading);
+      font-size: 20px;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-bottom: 16px;
+    }
+    .servico-title {
+      font-family: var(--heading);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .servico-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+    .servico-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.25s, transform 0.2s;
+    }
+    .servico-btn:hover {
+      color: var(--accent-2);
+      transform: translateX(4px);
+    }
+
+    /* 2. PROBLEMAS DO CLIENTE */
+    .problemas-container {
+      background: rgba(20, 18, 24, 0.6);
+      border: 1px solid rgba(200, 169, 110, 0.12);
+      border-radius: 12px;
+      padding: 60px 6%;
+    }
+    .problemas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .problema-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      background: rgba(244, 240, 234, 0.02);
+      border: 1px solid rgba(244, 240, 234, 0.05);
+      border-radius: var(--radius);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .problema-card:hover {
+      border-color: rgba(200, 169, 110, 0.2);
+      background: rgba(200, 169, 110, 0.04);
+    }
+    .problema-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(200, 169, 110, 0.12);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .problema-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .problemas-banner {
+      text-align: center;
+      padding: 32px 24px;
+      background: rgba(200, 169, 110, 0.05);
+      border: 1px solid rgba(200, 169, 110, 0.18);
+      border-radius: var(--radius);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .problemas-banner-text {
+      font-family: var(--heading);
+      font-size: clamp(16px, 1.8vw, 22px);
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    /* 3. ETAPAS (STEPPER) */
+    .etapas-stepper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .etapa-item {
+      padding: 24px;
+      background: rgba(244, 240, 234, 0.025);
+      border: 1px solid rgba(244, 240, 234, 0.05);
+      border-radius: var(--radius);
+      transition: transform 0.25s, border-color 0.3s;
+    }
+    .etapa-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(200, 169, 110, 0.25);
+    }
+    .etapa-num {
+      font-family: var(--heading);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .etapa-title {
+      font-family: var(--heading);
+      font-size: 16px;
+      color: var(--accent-2);
+      margin-bottom: 8px;
+    }
+    .etapa-desc {
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    .etapas-note {
+      margin-top: 36px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* 4. AUTORIDADE */
+    .autoridade-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .autoridade-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px;
+      background: rgba(244, 240, 234, 0.025);
+      border: 1px solid rgba(244, 240, 234, 0.06);
+      border-radius: var(--radius);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .autoridade-card:hover {
+      border-color: rgba(200, 169, 110, 0.25);
+      background: rgba(200, 169, 110, 0.04);
+    }
+    .autoridade-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+    .autoridade-title {
+      font-family: var(--heading);
+      font-size: 16px;
+      color: var(--accent-2);
+      margin-bottom: 6px;
+    }
+    .autoridade-desc {
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* 5. FAQ ACCORDION */
+    .faq-accordion {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      border: 1px solid rgba(244, 240, 234, 0.06);
+      background: rgba(244, 240, 234, 0.025);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .faq-item.active {
+      border-color: rgba(200, 169, 110, 0.25);
+      background: rgba(200, 169, 110, 0.04);
+    }
+    .faq-question {
+      width: 100%;
+      padding: 20px 24px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--heading);
+      font-size: clamp(15px, 1.4vw, 18px);
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      gap: 16px;
+    }
+    .faq-toggle {
+      font-size: 18px;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 24px;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      padding: 0 24px 20px 24px;
+    }
+    .faq-answer-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--text-dim);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-text, #loader { transition: opacity 0.3s; }
+      .scroll-hint-line { animation: none; }
+      #s6-backdrop { transition: opacity 0.3s; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="grain"></div>
+<div id="vinheta"></div>
+<canvas id="particles-canvas"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-brand">Quesia Rodrigues</div>
+  <div class="loader-lines">
+    <div class="loader-line"></div>
+    <div class="loader-bar-track"><div class="loader-bar-fill" id="loader-bar"></div></div>
+    <div class="loader-line"></div>
+  </div>
+  <div class="loader-pct" id="loader-pct">0%</div>
+</div>
+
+<!-- LOGO FIXO -->
+<div id="fixed-logo">
+  <div class="logo-mark">QR</div>
+  <div class="logo-sub">Advocacia · Regularização</div>
+</div>
+
+<!-- MARCADORES -->
+<nav id="chapter-marks" aria-label="Navegação por capítulos">
+  <div class="cm-dot active" data-section="0" id="cm0"><span class="cm-label">Início</span></div>
+  <div class="cm-line"></div>
+  <div class="cm-dot" data-section="1" id="cm1"><span class="cm-label">Visão</span></div>
+  <div class="cm-line"></div>
+  <div class="cm-dot" data-section="2" id="cm2"><span class="cm-label">Credenciais</span></div>
+  <div class="cm-line"></div>
+  <div class="cm-dot" data-section="3" id="cm3"><span class="cm-label">Diferenciais</span></div>
+  <div class="cm-line"></div>
+  <div class="cm-dot" data-section="4" id="cm4"><span class="cm-label">REURB</span></div>
+  <div class="cm-line"></div>
+  <div class="cm-dot" data-section="5" id="cm5"><span class="cm-label">Contato</span></div>
+</nav>
+
+<!-- SEÇÃO ANIMADA -->
+<section id="anim-section">
+  <div id="canvas-container">
+    <img id="cover-img" src="public/capa.png" alt="Quesia Rodrigues — Advocacia e Regularização de Imóveis" fetchpriority="high">
+    <canvas id="main-canvas"></canvas>
+    <div id="grad-left"></div>
+    <div id="grad-bottom"></div>
+    <div id="tint-overlay"></div>
+    <div id="scroll-hint">
+      <span class="scroll-hint-text">Scroll</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </div>
+
+  <!-- S1: Hero -->
+  <div class="scroll-text visible" id="s1" role="banner">
+    <div class="s1-label">Advocacia · Regularização de Imóveis</div>
+    <h1 class="s1-name"><em>Quesia</em><br>Rodrigues</h1>
+    <p class="s1-sub">Regularize seu imóvel com <strong>estratégia</strong> e <strong>segurança jurídica</strong>. Do registro ao título, cada etapa com quem conhece a fundo cada detalhe.</p>
+    <div class="stat-bar">
+      <div class="stat-item">
+        <div class="stat-num" data-target="9">0</div>
+        <div class="stat-label">Anos Tabeliã</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="100" data-suffix="+">0</div>
+        <div class="stat-label">Casos Resolvidos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">Pres.</div>
+        <div class="stat-label">Com. REURB</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2: Visão -->
+  <div class="scroll-text" id="s2" data-show-at="0.14" data-hide-at="0.27">
+    <div class="s2-quote-mark">"</div>
+    <blockquote class="s2-quote">Segurança jurídica não é burocracia —<br>é o alicerce do seu patrimônio.</blockquote>
+    <div class="s2-divider"></div>
+    <div class="s2-attribution">Quesia Rodrigues · Advogada Imobiliária</div>
+  </div>
+
+  <!-- S3: Credenciais -->
+  <div class="scroll-text" id="s3" data-show-at="0.30" data-hide-at="0.46">
+    <div class="s3-overline">Formação &amp; Experiência</div>
+    <h2 class="s3-title">Uma trajetória<br><em>construída no registro.</em></h2>
+    <p class="s3-body">Nove anos como Tabeliã e Registradora deram a Quesia um domínio que vai muito além do direito — ela conhece o processo de dentro para fora.</p>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-icon">⚖️</span><span>Advogada especializada em Direito Imobiliário</span></div>
+      <div class="feature-item"><span class="feature-icon">📜</span><span>Ex-Tabeliã e Registradora por 9 anos</span></div>
+      <div class="feature-item"><span class="feature-icon">🎓</span><span>Docente em cursos de Regularização Fundiária</span></div>
+      <div class="feature-item"><span class="feature-icon">🏛️</span><span>Presidente da Comissão Técnica de REURB</span></div>
+    </div>
+  </div>
+
+  <!-- S4: Diferenciais -->
+  <div class="scroll-text" id="s4" data-show-at="0.49" data-hide-at="0.65">
+    <div class="s4-overline">Por que Quesia?</div>
+    <h2 class="s4-title">Diferenciais que<br><em>protegem seu patrimônio</em></h2>
+    <div class="diff-grid">
+      <div class="diff-card"><div class="diff-card-icon">🎯</div><div class="diff-card-title">Estratégia Personalizada</div><div class="diff-card-desc">Diagnóstico preciso, solução sob medida para cada caso.</div></div>
+      <div class="diff-card"><div class="diff-card-icon">🏠</div><div class="diff-card-title">Regularização Completa</div><div class="diff-card-desc">Do diagnóstico ao registro — acompanhamento integral.</div></div>
+      <div class="diff-card"><div class="diff-card-icon">📋</div><div class="diff-card-title">Expertise em REURB</div><div class="diff-card-desc">Domínio técnico da Regularização Fundiária Urbana.</div></div>
+      <div class="diff-card"><div class="diff-card-icon">🔒</div><div class="diff-card-title">Segurança Jurídica</div><div class="diff-card-desc">Processos sólidos que protegem seu imóvel agora e no futuro.</div></div>
+      <div class="diff-card"><div class="diff-card-icon">⚡</div><div class="diff-card-title">Agilidade com Precisão</div><div class="diff-card-desc">Conhecimento interno dos cartórios garante rapidez.</div></div>
+      <div class="diff-card"><div class="diff-card-icon">🤝</div><div class="diff-card-title">Atendimento Próximo</div><div class="diff-card-desc">Comunicação clara e acompanhamento em todas as etapas.</div></div>
+    </div>
+  </div>
+
+  <!-- S5: REURB -->
+  <div class="scroll-text" id="s5" data-show-at="0.68" data-hide-at="0.83">
+    <div class="s5-overline">Especialidade</div>
+    <h2 class="s5-title">REURB — Regularização<br><em>Fundiária Urbana</em></h2>
+    <p class="s5-body">A Regularização Fundiária Urbana é o caminho legal para garantir o título definitivo do seu imóvel. Como Presidente da Comissão Técnica de REURB, Quesia lidera o campo.</p>
+    <div class="detail-list">
+      <div class="detail-row"><span class="detail-key">Diagnóstico</span><span class="detail-dots"></span><span class="detail-val">Análise completa da situação</span></div>
+      <div class="detail-row"><span class="detail-key">Documentação</span><span class="detail-dots"></span><span class="detail-val">Levantamento e organização</span></div>
+      <div class="detail-row"><span class="detail-key">Processo</span><span class="detail-dots"></span><span class="detail-val">REURB-S ou REURB-E</span></div>
+      <div class="detail-row"><span class="detail-key">Resultado</span><span class="detail-dots"></span><span class="detail-val">Título de propriedade</span></div>
+    </div>
+  </div>
+
+  <!-- Backdrop escuro/desfocado do S6 -->
+  <div id="s6-backdrop"></div>
+
+  <!-- S6: CTA -->
+  <div class="scroll-text" id="s6" data-show-at="0.86" data-hide-at="0.98">
+    <h2 class="s6-title">Seu imóvel regular.<br><em>Seu patrimônio seguro.</em></h2>
+    <p class="s6-sub">Dê o primeiro passo. Entre em contato com Quesia e descubra como regularizar seu imóvel com quem mais entende do assunto.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/message/5J5KV2LDI47WN1" target="_blank" rel="noopener" class="btn-primary" id="cta-whatsapp-scroll">
+        <span>💬</span> Falar no WhatsApp
+      </a>
+    </div>
+    <div class="contact-card">
+      <span style="font-size:18px">📲</span>
+      <span>Atendimento via WhatsApp · Resposta rápida</span>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="gallery-section" aria-label="Galeria">
+  <div class="gallery-header">
+    <div class="gallery-label">Portfólio Visual</div>
+    <h2 class="gallery-title">Cada imóvel tem<br><em>sua história regularizada</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item tall" data-parallax="-40"><img src="quadros/desktop/desktop/frame-0010.webp" alt="Quesia Rodrigues - imóvel regularizado" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="30"><img src="quadros/desktop/desktop/frame-0030.webp" alt="Regularização de imóvel" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="20"><img src="quadros/desktop/desktop/frame-0050.webp" alt="Advocacia imobiliária" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="-20"><img src="quadros/desktop/desktop/frame-0070.webp" alt="Segurança jurídica" loading="lazy"></div>
+    <div class="gallery-item tall" data-parallax="35"><img src="quadros/desktop/desktop/frame-0090.webp" alt="REURB - Regularização Fundiária" loading="lazy"></div>
+    <div class="gallery-item" data-parallax="-30"><img src="quadros/desktop/desktop/frame-0110.webp" alt="Quesia Rodrigues advogada" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- 1. COMO PODEMOS AJUDAR? (SERVIÇOS) -->
+<section id="servicos-section" class="section-wrapper" aria-label="Como podemos ajudar">
+  <div class="section-header-center">
+    <div class="section-tag">Áreas de Atuação</div>
+    <h2 class="section-title-large">Como podemos <em>ajudar você?</em></h2>
+  </div>
+  <div class="servicos-grid">
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">01</div>
+        <h3 class="servico-title">Regularização de Imóveis</h3>
+        <p class="servico-desc">Diagnóstico e condução de procedimentos notariais, registrais e judiciais para tornar seu imóvel plenamente legalizado.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Regulariza%C3%A7%C3%A3o%20de%20Im%C3%B3veis" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">02</div>
+        <h3 class="servico-title">Usucapião Judicial e Extrajudicial</h3>
+        <p class="servico-desc">Reconhecimento formal da propriedade decorrente da posse mansa e pacífica, realizado diretamente em cartório ou via judicial.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Usucapi%C3%A3o" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">03</div>
+        <h3 class="servico-title">Inventário e Regularização Sucessória</h3>
+        <p class="servico-desc">Resolução de pendências jurídicas em imóveis transmitidos por herança e formalização da partilha entre os herdeiros.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Invent%C3%A1rio%20e%20Partilha" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">04</div>
+        <h3 class="servico-title">Retificação de Área</h3>
+        <p class="servico-desc">Adequação e correção de metragens e limites da propriedade para conformar o registro cartorário à realidade física do terreno.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Retifica%C3%A7%C3%A3o%20de%20%C3%81rea" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">05</div>
+        <h3 class="servico-title">Escritura e Registro</h3>
+        <p class="servico-desc">Assessoria técnica na elaboração de escrituras públicas em notas e obtenção do registro definitivo na matrícula do imóvel.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Escritura%20e%20Registro" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">06</div>
+        <h3 class="servico-title">Desmembramento e Unificação</h3>
+        <p class="servico-desc">Divisão legal do terreno em novos lotes ou fusão de áreas contíguas perante os órgãos municipais e o Registro de Imóveis.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Desmembramento%20ou%20Unifica%C3%A7%C3%A3o" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">07</div>
+        <h3 class="servico-title">Due Diligence Imobiliária</h3>
+        <p class="servico-desc">Auditoria preventiva minuciosa para identificação de riscos jurídicos antes de compras, vendas, aquisições ou investimentos.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Due%20Diligence" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">08</div>
+        <h3 class="servico-title">REURB-S e REURB-E</h3>
+        <p class="servico-desc">Regularização Fundiária Urbana aplicável tanto ao interesse social (com isenções) quanto ao interesse específico do particular.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20REURB" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+
+    <div class="servico-card">
+      <div>
+        <div class="servico-num">09</div>
+        <h3 class="servico-title">Assessoria para Municípios e Loteamentos</h3>
+        <p class="servico-desc">Consultoria jurídica estratégica para gestão pública municipal, empreendedores e núcleos urbanos não regularizados.</p>
+      </div>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Assessoria%20para%20Munic%C3%ADpios%20e%20Loteamentos" target="_blank" rel="noopener" class="servico-btn">
+        <span>Entenda como funciona</span> <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SEU IMÓVEL APRESENTA ALGUM DESTES PROBLEMAS? -->
+<section id="problemas-section" class="section-wrapper" aria-label="Problemas recorrentes">
+  <div class="problemas-container">
+    <div class="section-header-center">
+      <div class="section-tag">Diagnóstico Prático</div>
+      <h2 class="section-title-large">Seu imóvel apresenta <em>algum destes problemas?</em></h2>
+    </div>
+    <div class="problemas-grid">
+      <div class="problema-card">
+        <div class="problema-icon">✓</div>
+        <div class="problema-text">Você comprou o imóvel, mas não possui escritura pública?</div>
+      </div>
+      <div class="problema-card">
+        <div class="problema-icon">✓</div>
+        <div class="problema-text">O imóvel ainda está registrado em nome de outra pessoa ou antigos proprietários?</div>
+      </div>
+      <div class="problema-card">
+        <div class="problema-icon">✓</div>
+        <div class="problema-text">A construção realizada não aparece averbada na matrícula do terreno?</div>
+      </div>
+      <div class="problema-card">
+        <div class="problema-icon">✓</div>
+        <div class="problema-text">A área descrita na matrícula é diferente da medição física real do imóvel?</div>
+      </div>
+      <div class="problema-card">
+        <div class="problema-icon">✓</div>
+        <div class="problema-text">O imóvel faz parte de um loteamento ou núcleo urbano informal/irregular?</div>
+      </div>
+      <div class="problema-card">
+        <div class="problema-icon">✓</div>
+        <div class="problema-text">Você quer vender ou financiar o imóvel, mas a documentação incompleta impede?</div>
+      </div>
+    </div>
+    <div class="problemas-banner">
+      <p class="problemas-banner-text">Cada situação exige uma análise específica. Converse com uma profissional especializada.</p>
+      <a href="https://wa.me/message/5J5KV2LDI47WN1" target="_blank" rel="noopener" class="btn-primary">
+        <span>💬</span> Consultar Meu Caso no WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ETAPAS DO ATENDIMENTO -->
+<section id="processo-section" class="section-wrapper" aria-label="Etapas do atendimento">
+  <div class="section-header-center">
+    <div class="section-tag">Metodologia Transparente</div>
+    <h2 class="section-title-large">Etapas do <em>atendimento</em></h2>
+  </div>
+  <div class="etapas-stepper">
+    <div class="etapa-item">
+      <div class="etapa-num">01</div>
+      <h3 class="etapa-title">Contato Inicial</h3>
+      <p class="etapa-desc">Apresentação do caso e escuta atenta das necessidades e objetivos do cliente.</p>
+    </div>
+    <div class="etapa-item">
+      <div class="etapa-num">02</div>
+      <h3 class="etapa-title">Análise Documental</h3>
+      <p class="etapa-desc">Exame minucioso da matrícula, certidões e histórico jurídico-registral existente.</p>
+    </div>
+    <div class="etapa-item">
+      <div class="etapa-num">03</div>
+      <h3 class="etapa-title">Diagnóstico</h3>
+      <p class="etapa-desc">Definição clara das soluções juridicamente possíveis e viabilidade técnica do caso.</p>
+    </div>
+    <div class="etapa-item">
+      <div class="etapa-num">04</div>
+      <h3 class="etapa-title">Estratégia</h3>
+      <p class="etapa-desc">Escolha fundamentada do procedimento mais célere e seguro (extrajudicial ou judicial).</p>
+    </div>
+    <div class="etapa-item">
+      <div class="etapa-num">05</div>
+      <h3 class="etapa-title">Acompanhamento</h3>
+      <p class="etapa-desc">Condução diligente em todas as instâncias até a conclusão possível no registro imobiliário.</p>
+    </div>
+  </div>
+  <p class="etapas-note">Nota: Cada situação possui peculiaridades próprias. A atuação é estritamente técnica, pautada na legislação vigente e na segurança patrimonial.</p>
+</section>
+
+<!-- 4. AUTORIDADE E CONTEÚDO -->
+<section id="autoridade-section" class="section-wrapper" aria-label="Reconhecimento e atuação">
+  <div class="section-header-center">
+    <div class="section-tag">Trajetória e Rigor</div>
+    <h2 class="section-title-large">Atuação e <em>Reconhecimento Técnico</em></h2>
+  </div>
+  <div class="autoridade-grid">
+    <div class="autoridade-card">
+      <div class="autoridade-icon">🏛️</div>
+      <div>
+        <h3 class="autoridade-title">Presidência de Comissão REURB</h3>
+        <p class="autoridade-desc">Liderança na Comissão Técnica de REURB, debatendo e estruturando soluções de regularização fundiária.</p>
+      </div>
+    </div>
+    <div class="autoridade-card">
+      <div class="autoridade-icon">🎓</div>
+      <div>
+        <h3 class="autoridade-title">Aulas e Cursos Ministrados</h3>
+        <p class="autoridade-desc">Docente em cursos de formação técnica e capacitação jurídica em Direito Imobiliário e Notarial.</p>
+      </div>
+    </div>
+    <div class="autoridade-card">
+      <div class="autoridade-icon">📜</div>
+      <div>
+        <h3 class="autoridade-title">Ex-Tabeliã e Registradora (9 Anos)</h3>
+        <p class="autoridade-desc">Experiência corporativa de quase uma década na gestão e condução direta de atos cartorários.</p>
+      </div>
+    </div>
+    <div class="autoridade-card">
+      <div class="autoridade-icon">🎤</div>
+      <div>
+        <h3 class="autoridade-title">Participações em Eventos do Setor</h3>
+        <p class="autoridade-desc">Palestrante e debatedora presente nos principais congressos de direito registral e urbanístico.</p>
+      </div>
+    </div>
+    <div class="autoridade-card">
+      <div class="autoridade-icon">📚</div>
+      <div>
+        <h3 class="autoridade-title">Artigos e Publicações</h3>
+        <p class="autoridade-desc">Produção teórica orientada à solução prática de desafios notariais e da regularização urbana.</p>
+      </div>
+    </div>
+    <div class="autoridade-card">
+      <div class="autoridade-icon">📺</div>
+      <div>
+        <h3 class="autoridade-title">Vídeos e Conteúdo Educativo</h3>
+        <p class="autoridade-desc">Difusão de conhecimento jurídico com linguagem acessível e foco em segurança patrimonial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PERGUNTAS FREQUENTES (FAQ) -->
+<section id="faq-section" class="section-wrapper" aria-label="Perguntas frequentes">
+  <div class="section-header-center">
+    <div class="section-tag">Esclarecimentos</div>
+    <h2 class="section-title-large">Perguntas <em>Frequentes</em></h2>
+  </div>
+  <div class="faq-accordion">
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Todo imóvel sem escritura pode ser regularizado?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">Na maioria dos casos, sim. Contudo, o procedimento exato (usucapião, REURB, adjudicação compulsória ou escrituração) dependerá da análise prévia dos documentos existentes e da cadeia de posse.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Quanto tempo leva uma regularização?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">O tempo varia de acordo com o tipo de procedimento. Regularizações extrajudiciais em cartório costumam ser mais céleres do que processos judiciais ou trâmites municipais mais complexos.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Quais documentos são necessários?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">Em geral, solicitam-se documentos pessoais, histórico da posse (contratos de gaveta, recibos), certidão de matrícula atualizada, comprovantes de despesas (como IPTU) e plantas do imóvel.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Qual é a diferença entre escritura e registro?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">A escritura (feita no Tabelionato de Notas) declara a relação de compra e venda. Já o registro (feito no Cartório de Registro de Imóveis) é o ato formal que efetivamente transfere a propriedade legal do bem.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>O que é REURB?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">REURB é a Regularização Fundiária Urbana (Lei nº 13.465/2017), um conjunto de medidas jurídicas, urbanísticas e sociais destinado a regularizar núcleos urbanos informais e conceder títulos aos ocupantes.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Qual é a diferença entre REURB-S e REURB-E?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">A REURB-S atende a interesse social (população de menor renda), contando com gratuidade cartorária. A REURB-E é para interesse específico, onde os custos do procedimento são custeados pelos próprios ocupantes.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>É possível regularizar um imóvel de pessoa falecida?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">Sim. Dependendo do histórico da posse e dos herdeiros, a regularização pode ser efetuada via inventário (judicial ou extrajudicial) ou diretamente por institutos como usucapião ou REURB.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>O atendimento pode ser realizado online?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">Sim. A recepção da documentação, reuniões de diagnóstico e envio dos pareceres jurídicos podem ser conduzidos integralmente de forma digital, com praticidade e segurança.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>É necessário comparecer ao cartório?</span>
+        <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-answer">
+        <p class="faq-answer-text">Em diversas etapas, os atos podem ser formalizados por meio de procuração jurídica ou assinatura eletrônica com certificado digital ICP-Brasil, reduzindo deslocamentos presenciais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre-section" aria-label="Sobre Quesia Rodrigues">
+  <div class="sobre-label">Sobre</div>
+  <h2 class="sobre-title">Quem é <em>Quesia Rodrigues?</em></h2>
+  <p class="sobre-body">Com formação sólida e experiência prática que poucos têm, Quesia Rodrigues construiu sua carreira no coração dos cartórios — como Tabeliã e Registradora por 9 anos. Esse percurso único lhe deu um entendimento profundo de cada etapa do processo de regularização, tornando-a uma das profissionais mais capacitadas do Brasil nessa área.</p>
+  <p class="sobre-body">Como Presidente da Comissão Técnica de REURB e Docente, ela não apenas pratica, mas ensina e lidera o desenvolvimento do campo. Para seus clientes, isso significa uma assessoria que vai muito além do parecer jurídico — é estratégia, conhecimento técnico e acesso a quem define as regras do jogo.</p>
+  <div class="credenciais-grid">
+    <div class="cred-card"><div class="cred-icon">⚖️</div><div class="cred-title">Advogada</div><div class="cred-desc">Especializada em Direito Imobiliário e Regularização Fundiária Urbana.</div></div>
+    <div class="cred-card"><div class="cred-icon">📜</div><div class="cred-title">Ex-Tabeliã · 9 Anos</div><div class="cred-desc">Experiência interna nos cartórios que poucos advogados possuem.</div></div>
+    <div class="cred-card"><div class="cred-icon">🎓</div><div class="cred-title">Docente</div><div class="cred-desc">Professora em cursos e capacitações de Regularização Fundiária.</div></div>
+    <div class="cred-card"><div class="cred-icon">🏛️</div><div class="cred-title">Pres. Comissão REURB</div><div class="cred-desc">Presidente da Comissão Técnica de Regularização Fundiária Urbana.</div></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final" aria-label="Entre em contato">
+  <h2 class="cta-final-title">Pronto para regularizar<br><em>seu imóvel?</em></h2>
+  <p class="cta-final-sub">Entre em contato agora mesmo. Quesia está pronta para analisar seu caso e apresentar a melhor solução com segurança jurídica.</p>
+  <div class="cta-final-btns">
+    <a href="https://wa.me/message/5J5KV2LDI47WN1" target="_blank" rel="noopener" class="btn-primary" id="cta-whatsapp-final">
+      <span>💬</span> Falar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer id="footer">
+  <div class="footer-brand">Quesia Rodrigues</div>
+  <div class="footer-legal">© 2025 · Advocacia e Regularização de Imóveis · Todos os direitos reservados</div>
+</footer>
+
+<script>
+/* ================================================================
+   QUESIA RODRIGUES — Motor de Animação por Scroll
+   ================================================================ */
+
+// 1. CURSOR
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+});
+(function lerpCursor() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(lerpCursor);
+})();
+document.querySelectorAll('a,button,.diff-card,.cred-card,.stat-item,.feature-item,.servico-card,.problema-card,.etapa-item,.autoridade-card,.faq-question').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// 2. MOBILE DETECTION
+const isMobile = () => window.innerWidth <= 900 || ('ontouchstart' in window);
+
+// 3. COVER IMAGE — troca por mobile
+function setCoverImage() {
+  const img = document.getElementById('cover-img');
+  img.src = isMobile() ? 'public/capa-vertical.png' : 'public/capa.png';
+}
+setCoverImage();
+window.addEventListener('resize', setCoverImage);
+
+// 4. PARTÍCULAS
+const pCanvas = document.getElementById('particles-canvas');
+const pCtx = pCanvas.getContext('2d');
+let particles = [];
+
+function resizeP() { pCanvas.width = innerWidth; pCanvas.height = innerHeight; }
+resizeP();
+
+function mkParticle() {
+  return { x: Math.random()*pCanvas.width, y: Math.random()*pCanvas.height,
+    r: 0.3 + Math.random()*1.5,
+    vx: (Math.random()-.5)*.25, vy: (Math.random()-.5)*.25,
+    a: 0.05 + Math.random()*.28 };
+}
+for (let i = 0; i < 38; i++) particles.push(mkParticle());
+
+(function animP() {
+  pCtx.clearRect(0,0,pCanvas.width,pCanvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = pCanvas.width;
+    if (p.x > pCanvas.width) p.x = 0;
+    if (p.y < 0) p.y = pCanvas.height;
+    if (p.y > pCanvas.height) p.y = 0;
+    pCtx.beginPath();
+    pCtx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    pCtx.fillStyle = `rgba(200,169,110,${p.a})`;
+    pCtx.fill();
+  });
+  requestAnimationFrame(animP);
+})();
+window.addEventListener('resize', () => { resizeP(); particles = []; for(let i=0;i<38;i++) particles.push(mkParticle()); });
+
+// 5. REMAP DE PAUSAS
+const DWELL_CENTERS = [0.065, 0.21, 0.365, 0.525, 0.685, 0.89];
+const DWELL_WIDTH = 0.048, DWELL_PEAK = 3.8, REMAP_N = 2000;
+let remapTable = null;
+
+(function buildRemap() {
+  const density = new Float32Array(REMAP_N);
+  for (let i = 0; i < REMAP_N; i++) {
+    const x = i/(REMAP_N-1); let d = 1;
+    DWELL_CENTERS.forEach(c => { const dist=(x-c)/DWELL_WIDTH; d += (DWELL_PEAK-1)*Math.exp(-0.5*dist*dist); });
+    density[i] = d;
+  }
+  const cum = new Float32Array(REMAP_N);
+  cum[0] = density[0];
+  for (let i = 1; i < REMAP_N; i++) cum[i] = cum[i-1]+density[i];
+  const tot = cum[REMAP_N-1];
+  for (let i = 0; i < REMAP_N; i++) cum[i] /= tot;
+  const inv = new Float32Array(REMAP_N);
+  let j = 0;
+  for (let i = 0; i < REMAP_N; i++) {
+    const t = i/(REMAP_N-1);
+    while (j < REMAP_N-1 && cum[j] < t) j++;
+    inv[i] = j/(REMAP_N-1);
+  }
+  remapTable = inv;
+})();
+
+function remapProgress(raw) {
+  if (!remapTable) return raw;
+  return remapTable[Math.min(REMAP_N-1, Math.floor(raw*(REMAP_N-1)))];
+}
+
+// 6. CANVAS & FRAMES
+const FRAME_COUNT = 120, LERP_FACTOR = 0.09;
+const canvas = document.getElementById('main-canvas');
+const ctx = canvas.getContext('2d');
+let frames = new Array(FRAME_COUNT).fill(null);
+let loaded = 0, animStarted = false;
+let curFrame = 0, tgtFrame = 0;
+
+function getFrameDir() { return isMobile() ? 'quadros/mobile/mobile/' : 'quadros/desktop/desktop/'; }
+function resizeCanvas() {
+  // Usa innerWidth/innerHeight — mais confiável que offsetWidth no mobile
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+// object-fit: cover no canvas — evita barras pretas
+function drawCover(f) {
+  const cw = canvas.width, ch = canvas.height;
+  const iw = f.naturalWidth  || f.width  || cw;
+  const ih = f.naturalHeight || f.height || ch;
+  const scale = Math.max(cw / iw, ch / ih);
+  const nw = iw * scale, nh = ih * scale;
+  const dx = (cw - nw) / 2, dy = (ch - nh) / 2;
+  ctx.drawImage(f, dx, dy, nw, nh);
+}
+
+function frameName(dir, i) { return dir + 'frame-' + String(i+1).padStart(4,'0') + '.webp'; }
+
+function getScrollPct() {
+  const s = document.getElementById('anim-section');
+  const r = s.getBoundingClientRect();
+  return Math.max(0, Math.min(1, -r.top / (s.offsetHeight - window.innerHeight)));
+}
+
+function loadFrames() {
+  const dir = getFrameDir();
+  const bar = document.getElementById('loader-bar');
+  const pctEl = document.getElementById('loader-pct');
+  let cnt = 0;
+
+  // Critical frames first
+  const step = Math.floor(FRAME_COUNT/10);
+  const critical = [];
+  for (let i = 0; i < FRAME_COUNT; i += step) critical.push(i);
+  if (!critical.includes(0)) critical.unshift(0);
+
+  function onLoad(idx, img) {
+    if (img) frames[idx] = img;
+    cnt++;
+    const p = Math.round(cnt/FRAME_COUNT*100);
+    bar.style.width = p+'%';
+    pctEl.textContent = p+'%';
+
+    // After critical: show canvas, hide cover
+    if (cnt === critical.length) {
+      resizeCanvas();
+      if (frames[0]) drawCover(frames[0]);
+      document.getElementById('cover-img').classList.add('hide');
+    }
+
+    if (cnt >= FRAME_COUNT) {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hide');
+        document.getElementById('fixed-logo').classList.add('show');
+        document.getElementById('cover-img').classList.add('hide');
+        if (!animStarted) { animStarted = true; startAnim(); }
+      }, 350);
+    }
+  }
+
+  function loadOne(i) {
+    if (frames[i]) { onLoad(i, null); return; }
+    const img = new Image();
+    img.onload = () => onLoad(i, img);
+    img.onerror = () => onLoad(i, null);
+    img.src = frameName(dir, i);
+  }
+
+  critical.forEach(i => loadOne(i));
+  let delay = 40;
+  for (let i = 0; i < FRAME_COUNT; i++) {
+    if (!critical.includes(i)) { setTimeout(() => loadOne(i), delay); delay += 7; }
+  }
+}
+
+// 7. LOOP DE ANIMAÇÃO
+const TINT = ['rgba(200,169,110,0.04)','rgba(180,140,90,0.05)','rgba(160,120,80,0.05)','rgba(200,169,110,0.04)','rgba(140,100,60,0.06)','rgba(200,169,110,0.07)'];
+const SEC_SHOW = [0, 0.14, 0.30, 0.49, 0.68, 0.86];
+
+function startAnim() {
+  const tint = document.getElementById('tint-overlay');
+  const hint = document.getElementById('scroll-hint');
+  const cmDots = document.querySelectorAll('.cm-dot');
+  const dynSections = Array.from(document.querySelectorAll('.scroll-text[data-show-at]'));
+  const hero = document.getElementById('s1');
+  const backdrop = document.getElementById('s6-backdrop');
+  const canvasContainer = document.getElementById('canvas-container');
+  const animSection = document.getElementById('anim-section');
+
+  (function loop() {
+    const raw = getScrollPct();
+    const rem = remapProgress(raw);
+    tgtFrame = Math.round(rem * (FRAME_COUNT-1));
+    curFrame += (tgtFrame - curFrame) * LERP_FACTOR;
+    const fi = Math.round(curFrame);
+
+    // Draw best available frame
+    let f = frames[fi];
+    if (!f) {
+      let best = -1, bestDist = Infinity;
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        if (frames[i]) { const d = Math.abs(i-fi); if (d < bestDist) { bestDist=d; best=i; } }
+      }
+      f = best >= 0 ? frames[best] : null;
+    }
+    if (f) { resizeCanvas(); drawCover(f); }
+
+    // Mostrar/esconder o canvas fixo baseado em se anim-section está no viewport
+    const animRect = animSection.getBoundingClientRect();
+    const inView = animRect.top < window.innerHeight && animRect.bottom > 0;
+    canvasContainer.classList.toggle('out-of-view', !inView);
+
+    // Scroll hint
+    if (raw > 0.01) hint.classList.add('hidden');
+
+    // Hero visibility (0 → 0.12)
+    hero.classList.toggle('visible', raw < 0.12);
+
+    // Dynamic sections
+    let s6Active = false;
+    dynSections.forEach(el => {
+      const sa = parseFloat(el.dataset.showAt);
+      const ha = parseFloat(el.dataset.hideAt);
+      const isVisible = raw >= sa && raw < ha;
+      el.classList.toggle('visible', isVisible);
+      if (el.id === 's6' && isVisible) s6Active = true;
+    });
+    backdrop.classList.toggle('active', s6Active);
+
+    // Tint
+    let si = 0;
+    for (let i = 0; i < DWELL_CENTERS.length; i++) {
+      if (raw >= DWELL_CENTERS[i] - 0.06) si = i;
+    }
+    tint.style.background = TINT[si];
+    tint.style.opacity = '1';
+
+    // Chapter marks
+    let active = 0;
+    SEC_SHOW.forEach((sp, i) => { if (raw >= sp - 0.05) active = i; });
+    cmDots.forEach((d, i) => d.classList.toggle('active', i === active));
+
+    requestAnimationFrame(loop);
+  })();
+}
+
+// 8. GALERIA
+function initGallery() {
+  const items = document.querySelectorAll('.gallery-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('revealed'), i*90);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  items.forEach(el => obs.observe(el));
+
+  (function parallaxLoop() {
+    items.forEach(el => {
+      const r = el.getBoundingClientRect();
+      const offset = ((r.top + r.bottom)/2 - innerHeight/2) / innerHeight;
+      const px = parseFloat(el.dataset.parallax||0);
+      const img = el.querySelector('img');
+      if (img) img.style.transform = `translateY(${offset*px}px) scale(1.04)`;
+    });
+    requestAnimationFrame(parallaxLoop);
+  })();
+}
+
+// 9. CONTADORES
+function initCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const obs = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      obs.unobserve(el);
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix||'';
+      const start = performance.now();
+      (function upd(now) {
+        const t = Math.min(1,(now-start)/1500);
+        const e = 1-Math.pow(1-t,3);
+        el.textContent = Math.round(e*target)+suffix;
+        if (t<1) requestAnimationFrame(upd);
+      })(start);
+    }, { threshold: 0.5 });
+    obs.observe(el);
+  });
+}
+
+// 10. CHAPTER MARKS — click
+function initChapterMarks() {
+  document.querySelectorAll('.cm-dot').forEach(d => {
+    d.addEventListener('click', () => {
+      const si = parseInt(d.dataset.section);
+      const sec = document.getElementById('anim-section');
+      const t = SEC_SHOW[si] * (sec.offsetHeight - innerHeight);
+      window.scrollTo({ top: t, behavior: 'smooth' });
+    });
+  });
+}
+
+// 11. FAQ ACCORDION
+function initFAQ() {
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+      if (!isActive) item.classList.add('active');
+    });
+  });
+}
+
+// INIT
+window.addEventListener('DOMContentLoaded', () => {
+  resizeCanvas();
+  loadFrames();
+  initGallery();
+  initCounters();
+  initChapterMarks();
+  initFAQ();
+});
+window.addEventListener('resize', resizeCanvas);
+</script>
+</body>
+</html>

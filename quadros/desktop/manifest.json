@@ -1,0 +1,25 @@
+{
+  "origem": {
+    "arquivo": "horizontal 1920x1080.mp4",
+    "duracao": 8.0,
+    "resolucao": "1920x1080",
+    "fps": 24.0,
+    "codec": "h264",
+    "total_quadros_origem": 192
+  },
+  "quadros": {
+    "quantidade_alvo": 120,
+    "formato": "webp",
+    "qualidade": 80,
+    "padrao_nomes": "frame-{NNNN}.webp"
+  },
+  "altura_scroll_recomendada": "400vh",
+  "criado_em": "2026-08-05T17:04:10",
+  "desktop": {
+    "resolucao": "1920x1080",
+    "quantidade_real": 120,
+    "bytes_totais": 8690188,
+    "bytes_medios": 72418,
+    "total_mb": 8.29
+  }
+}
