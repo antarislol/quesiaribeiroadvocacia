@@ -746,7 +746,7 @@
 <!-- SEÇÃO ANIMADA -->
 <section id="anim-section">
   <div id="canvas-container">
-    <img id="cover-img" src="public/capa.png" alt="Quesia Rodrigues — Advocacia e Regularização de Imóveis" fetchpriority="high">
+    <img id="cover-img" src="assets/capa.png" alt="Quesia Rodrigues — Advocacia e Regularização de Imóveis" fetchpriority="high">
     <canvas id="main-canvas"></canvas>
     <div id="grad-left"></div>
     <div id="grad-bottom"></div>
@@ -1259,7 +1259,7 @@ const isMobile = () => window.innerWidth <= 900 || ('ontouchstart' in window);
 // 3. COVER IMAGE — troca por mobile
 function setCoverImage() {
   const img = document.getElementById('cover-img');
-  img.src = isMobile() ? 'public/capa-vertical.png' : 'public/capa.png';
+  img.src = isMobile() ? 'assets/capa-vertical.png' : 'assets/capa.png';
 }
 setCoverImage();
 window.addEventListener('resize', setCoverImage);
